@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "alphatweaks",
+  "version": "${version}",
+  "license": "Unlicense",
+  "authors": ["rdh"],
+  "name": "AlphaTweaks",
+  "description": "bugfixes and backports for alpha minecraft",
+  "environment": "client",
+  "entrypoints": {
+    "preLaunch": ["dev.rdh.alphatweaks.EarlyRiser"]
+  },
+  "mixins": ["alphatweaks.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.17",
+    "minecraft": "1.0.0-alpha.2.6"
+  }
+}

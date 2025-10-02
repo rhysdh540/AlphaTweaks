@@ -1,0 +1,30 @@
+package dev.rdh.alphatweaks;
+
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.OutputStream;
+import java.io.PrintStream;
+
+public class LoggedPrintStream extends PrintStream {
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoggedPrintStream.class);
+	protected final String name;
+
+	public LoggedPrintStream(String string, OutputStream outputStream) {
+		super(outputStream);
+		this.name = string;
+	}
+
+	public void println(@Nullable String string) {
+		this.logLine(string);
+	}
+
+	public void println(Object object) {
+		this.logLine(String.valueOf(object));
+	}
+
+	protected void logLine(@Nullable String string) {
+		LOGGER.info("[{}]: {}", this.name, string);
+	}
+}
