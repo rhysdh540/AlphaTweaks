@@ -32,6 +32,7 @@ ploceus {
 loom.runs {
     named("client") {
         property("mixin.debug.export", "true")
+        programArgs("--username", "OiledOrangutan")
     }
 }
 
