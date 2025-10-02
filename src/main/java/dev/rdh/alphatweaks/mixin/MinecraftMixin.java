@@ -1,5 +1,6 @@
 package dev.rdh.alphatweaks.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -146,5 +147,10 @@ public abstract class MinecraftMixin {
 	@Redirect(method = "*", at = @At(value = "INVOKE", target = "Ljava/lang/Throwable;printStackTrace()V", remap = false), require = 0)
 	private void logStackTraces(Throwable throwable) {
 		LOGGER.error("Exception thrown", throwable);
+	}
+
+	@ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;isMultiplayer()Z", ordinal = 0))
+	private boolean openChat(boolean original) {
+		return true;
 	}
 }

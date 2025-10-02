@@ -29,6 +29,12 @@ ploceus {
     setGeneration(2)
 }
 
+loom.runs {
+    named("client") {
+        property("mixin.debug.export", "true")
+    }
+}
+
 dependencies {
     minecraft("com.mojang:minecraft:a1.2.6")
     mappings(ploceus.featherMappings("4"))

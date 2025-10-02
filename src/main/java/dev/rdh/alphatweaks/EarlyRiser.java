@@ -12,5 +12,10 @@ public class EarlyRiser implements PreLaunchEntrypoint {
 	public void onPreLaunch() {
 		System.setErr(new LoggedPrintStream("STDERR", STDERR));
 		System.setOut(new LoggedPrintStream("STDOUT", STDOUT));
+
+		String nativePath = System.getProperty("org.lwjgl.librarypath");
+		if (nativePath != null) {
+			System.setProperty("net.java.games.input.librarypath", nativePath);
+		}
 	}
 }

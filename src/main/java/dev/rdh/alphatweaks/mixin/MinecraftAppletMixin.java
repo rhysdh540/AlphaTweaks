@@ -20,6 +20,7 @@ import java.applet.*;
 import java.awt.*;
 
 @SuppressWarnings("removal")
+// mostly code borrowed from https://github.com/DanyGames2014/gambac, which is licensed under the MIT license
 @Mixin(MinecraftApplet.class)
 public class MinecraftAppletMixin extends Applet {
 	@Shadow
