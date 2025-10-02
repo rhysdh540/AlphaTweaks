@@ -10,8 +10,8 @@ public class EarlyRiser implements PreLaunchEntrypoint {
 
 	@Override
 	public void onPreLaunch() {
-		System.setErr(new LoggedPrintStream("STDERR", STDERR));
-		System.setOut(new LoggedPrintStream("STDOUT", STDOUT));
+		System.setErr(new LoggerPrintStream("STDERR", STDERR));
+		System.setOut(new LoggerPrintStream("STDOUT", STDOUT));
 
 		String nativePath = System.getProperty("org.lwjgl.librarypath");
 		if (nativePath != null) {

@@ -5,7 +5,10 @@
     "MouseMixin",
     "MinecraftAppletMixin",
     "MinecraftMixin",
-    "InputClientPlayerEntityMixin"
+    "InputClientPlayerEntityMixin",
+    "ResourceDownloaderMixin",
+    "ConnectionMixin",
+    "GameOptionsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
