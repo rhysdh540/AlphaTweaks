@@ -20,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.render.ProgressRenderer;
 
 import java.io.PrintStream;
 
@@ -28,6 +29,7 @@ import static org.lwjgl.opengl.GL11.*;
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
 	@SuppressWarnings("LoggerInitializedWithForeignClass")
+	@Unique
 	private static final Logger LOGGER = LoggerFactory.getLogger(Minecraft.class);
 
 	@Shadow public volatile boolean running;
@@ -50,14 +52,14 @@ public abstract class MinecraftMixin {
 	@Unique private int previousWidth;
 	@Unique private int previousHeight;
 
-	@Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;stop()V", shift = At.Shift.AFTER), cancellable = true)
-	private void stopGameLoop(CallbackInfo ci) {
-		ci.cancel();
+	@Inject(method = "run", at = @At("TAIL"))
+	private void endRun(CallbackInfo ci) {
+		this.shutdown();
 	}
 
-	@Inject(method = "stop", at = @At("HEAD"))
-	private void onStop(CallbackInfo ci) {
-		this.shutdown();
+	@Redirect(method = "setWorld(Lnet/minecraft/world/World;Ljava/lang/String;Lnet/minecraft/entity/mob/player/PlayerEntity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/ProgressRenderer;progressStart(Ljava/lang/String;)V"))
+	private void redirectProgressStart(ProgressRenderer instance, String title) {
+		instance.progressStartNoAbort(title);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))

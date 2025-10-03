@@ -8,7 +8,8 @@
     "InputClientPlayerEntityMixin",
     "ResourceDownloaderMixin",
     "ConnectionMixin",
-    "GameOptionsMixin"
+    "GameOptionsMixin",
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
