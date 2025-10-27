@@ -2,14 +2,15 @@
   "package": "dev.rdh.alphatweaks.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "MouseMixin",
-    "MinecraftAppletMixin",
-    "MinecraftMixin",
-    "InputClientPlayerEntityMixin",
-    "ResourceDownloaderMixin",
-    "ConnectionMixin",
-    "GameOptionsMixin",
-    "TitleScreenMixin"
+    "client.MouseMixin",
+    "client.MinecraftAppletMixin",
+    "client.MinecraftMixin",
+    "client.InputClientPlayerEntityMixin",
+    "client.ResourceDownloaderMixin",
+    "client.ConnectionMixin",
+    "client.GameOptionsMixin",
+    "client.TitleScreenMixin",
+    "client.auth.SessionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

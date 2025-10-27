@@ -1,4 +1,4 @@
-package dev.rdh.alphatweaks.mixin;
+package dev.rdh.alphatweaks.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import org.spongepowered.asm.mixin.Mixin;

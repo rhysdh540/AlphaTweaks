@@ -1,4 +1,4 @@
-package dev.rdh.alphatweaks.mixin;
+package dev.rdh.alphatweaks.mixin.client;
 
 import org.lwjgl.opengl.Display;
 import org.spongepowered.asm.mixin.Mixin;
