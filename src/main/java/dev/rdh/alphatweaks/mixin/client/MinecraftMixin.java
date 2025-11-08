@@ -57,7 +57,7 @@ public abstract class MinecraftMixin {
 		this.shutdown();
 	}
 
-	@Redirect(method = "setWorld(Lnet/minecraft/world/World;Ljava/lang/String;Lnet/minecraft/entity/mob/player/PlayerEntity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/ProgressRenderer;progressStart(Ljava/lang/String;)V"))
+	@Redirect(method = "prepareWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/ProgressRenderer;progressStart(Ljava/lang/String;)V"))
 	private void redirectProgressStart(ProgressRenderer instance, String title) {
 		instance.progressStartNoAbort(title);
 	}

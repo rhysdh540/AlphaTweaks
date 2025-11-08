@@ -13,6 +13,6 @@
   "mixins": ["alphatweaks.mixins.json"],
   "depends": {
     "fabricloader": ">=0.17",
-    "minecraft": "1.0.0-alpha.2.6"
+    "minecraft": "1.0.0-alpha.1.2.1"
   }
 }

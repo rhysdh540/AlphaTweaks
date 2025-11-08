@@ -37,11 +37,11 @@ loom.runs {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:a1.2.6")
+    minecraft("com.mojang:minecraft:a1.1.2_01")
     mappings(ploceus.featherMappings("4"))
     exceptions(ploceus.raven("2"))
     signatures(ploceus.sparrow("2"))
-    nests(ploceus.nests("6"))
+    nests(ploceus.nests("5"))
 
     modImplementation("net.fabricmc:fabric-loader:0.17.2")
 

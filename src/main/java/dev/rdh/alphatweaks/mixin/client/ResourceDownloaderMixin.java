@@ -12,6 +12,6 @@ public class ResourceDownloaderMixin {
 	@SuppressWarnings("HttpUrlsUsage")
 	@ModifyExpressionValue(method = "run", at = @At(value = "CONSTANT", args = "stringValue=http://s3.amazonaws.com/MinecraftResources/"))
 	private String useBetacraft(String original) {
-		return "http://s3.betacraft.uk:11705/MinecraftResources/";
+		return original.replace("amazonaws.com", "betacraft.uk:11705");
 	}
 }
