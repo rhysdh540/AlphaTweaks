@@ -1,6 +1,7 @@
 plugins {
     id("fabric-loom") version ("1.13.+")
     id("ploceus") version ("1.13.+")
+    id("maven-publish")
 }
 
 group = "dev.rdh"
@@ -80,4 +81,22 @@ tasks.processResources {
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
     options.compilerArgs.add("-Xplugin:amnesia")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
+
+    repositories {
+        maven("https://maven.taumc.org/releases") {
+            name = "TauMC"
+            credentials {
+                username = System.getenv("TAUMC_MAVEN_USERNAME")
+                password = System.getenv("TAUMC_MAVEN_PASSWORD")
+            }
+        }
+    }
 }
