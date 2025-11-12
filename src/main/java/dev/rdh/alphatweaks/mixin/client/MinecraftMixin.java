@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -137,6 +138,15 @@ public abstract class MinecraftMixin {
 		} catch (Exception e) {
 			LOGGER.error("Couldn't toggle fullscreen", e);
 		}
+	}
+
+	@ModifyArg(method = "init", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V"))
+	private String changeWindowTitle(String original) {
+		if (original.startsWith("Minecraft Minecraft ")) {
+			original = original.substring("Minecraft ".length());
+		}
+
+		return original;
 	}
 
 	@Dynamic // not actually, just makes mcdev shut up
