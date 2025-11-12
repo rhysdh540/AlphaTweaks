@@ -1,8 +1,6 @@
-import net.fabricmc.loom.task.AbstractRemapJarTask
-
 plugins {
-    id("fabric-loom") version ("1.11.+")
-    id("ploceus") version ("1.11.+")
+    id("fabric-loom") version ("1.13.+")
+    id("ploceus") version ("1.13.+")
 }
 
 group = "dev.rdh"
@@ -20,13 +18,24 @@ repositories {
     }
 
     exclusiveContent {
-        forRepository { flatDir { dirs("natives") } }
-        filter { includeGroup("natives") }
+        forRepository { maven("https://maven.legacyfabric.net") }
+        filter { includeGroup("org.lwjgl.lwjgl") }
+    }
+
+    exclusiveContent {
+        forRepository {
+            ivy("https://github.com/r58Playz/jinput-m1/raw/main/plugins/OSX/bin/") {
+                patternLayout { artifact("[artifact]-[revision].[ext]") }
+                metadataSources { artifact() }
+            }
+        }
+
+        filter { includeGroup("net.java.jinput-redirected") }
     }
 }
 
 ploceus {
-    setGeneration(2)
+    setIntermediaryGeneration(2)
 }
 
 loom.runs {
@@ -43,7 +52,7 @@ dependencies {
     signatures(ploceus.sparrow("2"))
     nests(ploceus.nests("5"))
 
-    modImplementation("net.fabricmc:fabric-loader:0.17.2")
+    modImplementation("net.fabricmc:fabric-loader:0.18.0")
 
     annotationProcessor("dev.rdh:amnesia:1.2.0")
 }
@@ -51,31 +60,17 @@ dependencies {
 configurations.all {
     resolutionStrategy.eachDependency {
         if (requested.group == "org.lwjgl.lwjgl") {
-            useVersion("2.9.4-nightly-20150209")
-        }
-    }
-}
-
-configurations.minecraftNatives {
-    resolutionStrategy.eachDependency {
-        if (requested.group == "org.lwjgl.lwjgl" && requested.name == "lwjgl-platform") {
-            useTarget("natives:lwjgl-platform:2.9.4-nightly-20150209")
+            useVersion("2.9.4+legacyfabric.15")
         }
 
         if (requested.group == "net.java.jinput" && requested.name == "jinput-platform") {
-            useTarget("natives:jinput-platform:2.0.5")
+            useTarget("${requested.group}-redirected:${requested.name}:${requested.version}")
         }
     }
-}
-
-tasks.withType<AbstractRemapJarTask>().configureEach {
-    // ploceus postprocesses the jar with doLast and captures the project >:(
-    notCompatibleWithConfigurationCache("ploceus")
 }
 
 tasks.processResources {
     inputs.property("version", project.version)
-
 
     filesMatching("fabric.mod.json") {
         expand(inputs.properties)
